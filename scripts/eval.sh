@@ -17,6 +17,8 @@ set -uo pipefail
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 EVALS="$REPO/evals"
 TIMEOUT="${EVAL_TIMEOUT:-90}"
+# Keeps eval sessions out of the usage log the audit reads.
+export CLAUDE_SKILL_EVAL=1
 LIST_ONLY=0
 [ "${1:-}" = "--list" ] && { LIST_ONLY=1; shift; }
 
