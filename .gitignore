@@ -1,0 +1,35 @@
+.DS_Store
+node_modules/
+__pycache__/
+*.pyc
+
+# Local secrets — only .env.example is tracked
+.env
+.env.local
+
+# Claude Code runtime state, if this repo is ever checked out into ~/.claude
+sessions/
+history.jsonl
+projects/
+file-history/
+shell-snapshots/
+paste-cache/
+image-cache/
+session-env/
+statsig/
+todos/
+plans/
+state/
+cache/
+daemon/
+daemon.log
+jobs/
+debug/
+ide/
+uploads/
+downloads/
+backups/
+settings.local.json
+.last-cleanup
+.last-update-result.json
+.update.lock
