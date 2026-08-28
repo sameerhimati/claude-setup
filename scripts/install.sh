@@ -10,6 +10,10 @@ set -euo pipefail
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DEST="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
 STAMP="$(date +%Y%m%d-%H%M%S)"
+# Backups live outside skills/ and agents/. A backup left in place inside skills/
+# registers as a second, competing skill with the same triggers as the one it
+# replaced, which quietly corrupts routing.
+BACKUP="$DEST/.backups/$STAMP"
 DRY=0
 [ "${1:-}" = "--dry-run" ] && DRY=1
 
@@ -43,8 +47,9 @@ link_entries() {
       [ "$(readlink "$target")" = "$entry" ] && continue
       run rm "$target"
     elif [ -e "$target" ]; then
-      say "  backing up existing $sub/$name -> $sub/$name.bak-$STAMP"
-      run mv "$target" "$target.bak-$STAMP"
+      say "  backing up existing $sub/$name -> .backups/$STAMP/$sub/$name"
+      run mkdir -p "$BACKUP/$sub"
+      run mv "$target" "$BACKUP/$sub/$name"
     fi
     run ln -s "$entry" "$target"
     say "  linked $sub/$name"

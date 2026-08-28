@@ -33,3 +33,6 @@ settings.local.json
 .last-cleanup
 .last-update-result.json
 .update.lock
+
+# Personal voice file, not published. See skills/deslop/SKILL.md.
+skills/*/voice.local.md
