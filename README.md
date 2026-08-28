@@ -46,4 +46,49 @@ The usage log is local, gitignored, and does not rotate. Session transcripts are
 
 ## Skills
 
-Populated in a later commit.
+| Skill | Fires when |
+|---|---|
+| `session-kickoff` | Starting work, picking up where things left off |
+| `session-handoff` | Wrapping up, "good to exit?", checking everything is committed |
+| `claude-api` | Writing or debugging Claude API code, prompt caching, model choice |
+| `deslop` | Prose reads machine-written, "sound more like me", "less like ChatGPT" |
+| `office-hours` | Pressure-testing an idea before building it |
+| `oss` | Making a repo public, checking it for secrets first |
+| `writing-skills` | Writing or fixing a skill, or a skill that will not trigger |
+
+A skill exists only if the model would not already do the thing. Twenty-two skills were measured
+against eleven months of usage; the ones that had never fired all described default behavior — run
+tests, search, debug, plan. They were removed rather than rewritten.
+
+```bash
+./scripts/eval.sh              # every skill
+./scripts/eval.sh deslop       # one
+./scripts/eval.sh --list       # cases, no model calls
+```
+
+Each skill has cases in `evals/<name>.jsonl`, at least one negative. Costs tokens: one short turn per
+case, exploration tools blocked so the run stops at the routing decision.
+
+## Measurement
+
+Three layers, after [WikiSkill](https://arxiv.org/abs/2608.27454).
+
+| Layer | Where | Read by |
+|---|---|---|
+| What happened | `~/.claude/state/skill-usage.jsonl` | the audit |
+| What was learned | `wiki/patterns/*.md` | the audit only |
+| What runs | `skills/*/SKILL.md` | every session |
+
+The wiki is local, gitignored, and never installed. Nothing read while working should come from it:
+in the paper's ablation, giving the working agent the knowledge base scored *below* giving it
+nothing, while giving it only to the skill-editing pass scored well above both. `install.sh` refuses
+to install a skill that references `wiki/`.
+
+```bash
+./scripts/audit.sh --stats     # what fired, what didn't
+./scripts/audit.sh             # ...then propose changes
+./scripts/wiki.sh add "title"  # record a pattern
+```
+
+The audit proposes and never edits. Apply one change at a time, then
+`./scripts/wiki.sh log <skill> kept|reverted "<note>"`.
