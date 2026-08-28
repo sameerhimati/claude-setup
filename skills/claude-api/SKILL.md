@@ -1,10 +1,10 @@
 ---
 name: claude-api
 description: >-
-  Reference for the Claude API and Anthropic SDK: model ids, pricing, parameters, streaming,
-  tool use, MCP, agents, prompt caching, token counting, and migration. Use when writing or
-  debugging code against the Claude or Anthropic API, choosing a model, or answering questions
-  about model pricing, rate limits, or caching.
+  Reference for the Claude API and Anthropic SDK. Use when adding prompt caching or
+  cache_control to an Anthropic API call, writing or debugging code against the Claude API,
+  choosing between Claude models, or answering questions about model ids, pricing, rate limits,
+  streaming, tool use, token counting, or migration.
 allowed-tools: Read, Grep, WebFetch, WebSearch
 ---
 

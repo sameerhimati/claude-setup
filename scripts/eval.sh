@@ -51,7 +51,7 @@ BLOCKED="Bash Read Glob Grep Edit Write WebFetch WebSearch Task TodoWrite Notebo
 # at the routing decision on purpose, before any work happens.
 fired_skill() {
   local prompt="$1"
-  claude -p "$prompt" \
+  $TO claude -p "$prompt" \
     --output-format stream-json --verbose \
     --max-turns 2 \
     --disallowedTools "$BLOCKED" \
@@ -78,8 +78,7 @@ for f in "${files[@]}"; do
       continue
     fi
 
-    # $TO is unquoted on purpose: it is either empty or "timeout <n>".
-    got="$($TO bash -c "$(declare -f fired_skill); fired_skill \"\$1\"" _ "$prompt")"
+    got="$(fired_skill "$prompt")"
     got="${got//[$'\n\r']/}"
 
     if [ "$got" = "$expect" ]; then

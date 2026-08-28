@@ -1,3 +1,3 @@
-{"prompt": "cool. so where are we? staging done and recommender built?", "expect": "session-kickoff"}
 {"prompt": "lets start, what should I work on", "expect": "session-kickoff"}
+{"prompt": "picking this back up, where did we leave off", "expect": "session-kickoff"}
 {"prompt": "delete the unused imports in this file", "expect": null}

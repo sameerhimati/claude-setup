@@ -1,9 +1,9 @@
 ---
 name: writing-skills
 description: >-
-  Writes and revises agent skills, and decides whether one should exist at all. Use when creating a
-  skill, editing a SKILL.md, fixing a skill that does not trigger, writing a description, or deciding
-  whether something should be a skill, a rule, or a hook.
+  Writes and revises agent skills. Use when deciding whether something should be a skill, a
+  rule, or a hook, when a skill is not firing or never triggers when asked for, when creating a
+  skill or editing a SKILL.md, or when writing or fixing a skill description.
 ---
 
 # Writing skills
@@ -93,6 +93,18 @@ Read the failures correctly:
 - **Undertriggering** — add the phrasings that were actually typed. Do not touch the body.
 - **Overtriggering** — narrow the "Use when" clause and add the negative case that caught it.
 - **Fires but does badly** — that is the body. The description is fine; leave it alone.
+- **The case is wrong** — check this first. Two of the three failures in the first run across seven
+  skills were bad cases, not bad descriptions.
+
+Write cases as tasks, not questions. A description can match a prompt almost verbatim and still not
+fire: "should this be a skill or a hook?" did not trigger a skill whose description led with
+"deciding whether something should be a skill, a rule, or a hook," because it is a question the model
+can simply answer. "Write me a skill for reviewing migrations" fires. The model weighs whether it
+needs the skill at all, which is the no-op rule seen from the other side.
+
+Trigger phrases displace each other. Adding one to a description broke a case that had been passing;
+reordering so the failing phrase led fixed both. Reorder before you add, and re-run the whole file
+rather than the failing case.
 
 Two skills whose names collide will split the routing between them. If a skill stops firing after an
 edit, check that nothing else in `skills/` answers to the same triggers.
