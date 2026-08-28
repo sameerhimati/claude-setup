@@ -1,0 +1,3 @@
+{"prompt": "this README reads like an AI wrote it, can you fix the writing", "expect": "deslop"}
+{"prompt": "make this blog post sound more like me and less like ChatGPT", "expect": "deslop"}
+{"prompt": "add a retry with backoff to the fetch call in api.ts", "expect": null}
