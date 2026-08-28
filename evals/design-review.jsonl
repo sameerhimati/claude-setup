@@ -1,3 +1,0 @@
-{"prompt": "the spacing on this dashboard looks off, can you review the design", "expect": "design-review"}
-{"prompt": "this page looks like generic AI slop, fix the visual hierarchy", "expect": "design-review"}
-{"prompt": "bump the postgres driver to the latest version", "expect": null}

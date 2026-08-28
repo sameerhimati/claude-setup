@@ -1,9 +1,9 @@
 ---
 name: writing-skills
 description: >-
-  Writes and revises agent skills. Use when deciding whether something should be a skill, a
-  rule, or a hook, when a skill is not firing or never triggers when asked for, when creating a
-  skill or editing a SKILL.md, or when writing or fixing a skill description.
+  Writes and revises agent skills. Use when a skill is not firing or never triggers when asked
+  for, when writing or fixing a skill description, when creating a new skill or turning a
+  repeated workflow into one, or when editing a SKILL.md.
 ---
 
 # Writing skills
