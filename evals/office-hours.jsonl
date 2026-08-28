@@ -1,0 +1,3 @@
+{"prompt": "I have an idea, insurance brokers could use this. worth building?", "expect": "office-hours"}
+{"prompt": "help me think through whether this is a real product", "expect": "office-hours"}
+{"prompt": "the build is failing on CI, take a look", "expect": null}

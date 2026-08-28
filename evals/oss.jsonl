@@ -1,0 +1,2 @@
+{"prompt": "I want to open source this repo, is it safe to make public", "expect": "oss"}
+{"prompt": "check this repo for secrets before I publish it", "expect": "oss"}

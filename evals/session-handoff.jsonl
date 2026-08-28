@@ -1,0 +1,4 @@
+{"prompt": "good to exit? commited and push it all right?", "expect": "session-handoff"}
+{"prompt": "are we good to exit? what is the plan", "expect": "session-handoff"}
+{"prompt": "thats enough for today, wrap it up", "expect": "session-handoff"}
+{"prompt": "what does this regex in parser.ts actually match", "expect": null}

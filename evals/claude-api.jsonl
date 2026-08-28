@@ -1,0 +1,3 @@
+{"prompt": "which claude model should I use for this and what does it cost", "expect": "claude-api"}
+{"prompt": "set up prompt caching on this anthropic API call", "expect": "claude-api"}
+{"prompt": "write a bash script to rename these files", "expect": null}

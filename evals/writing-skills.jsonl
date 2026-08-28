@@ -1,0 +1,4 @@
+{"prompt": "this skill never fires when I ask for it, whats wrong with it", "expect": "writing-skills"}
+{"prompt": "write me a new skill for reviewing database migrations", "expect": "writing-skills"}
+{"prompt": "should this be a skill or a hook?", "expect": "writing-skills"}
+{"prompt": "why is this SQL query slow", "expect": null}
