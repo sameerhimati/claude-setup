@@ -30,6 +30,15 @@ if [ -e "$DEST" ]; then
   esac
 fi
 
+# The knowledge layer is read only when revising skills, never while working. A skill
+# that points at it puts accumulated notes into the runtime context, which measures
+# worse than having no notes at all. Fail loudly rather than install such a skill.
+if grep -rlE 'wiki/(patterns|impact)' "$REPO/skills" 2>/dev/null | grep -q .; then
+  say "error: a skill references wiki/. Skills are compiled from it, not readers of it:"
+  grep -rlE 'wiki/(patterns|impact)' "$REPO/skills" | sed "s|$REPO/|  |"
+  exit 1
+fi
+
 run mkdir -p "$DEST"
 
 # --- linked directories -------------------------------------------------------

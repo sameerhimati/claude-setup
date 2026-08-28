@@ -36,3 +36,6 @@ settings.local.json
 
 # Personal voice file, not published. See skills/deslop/SKILL.md.
 skills/*/voice.local.md
+
+# Knowledge layer: local, may be its own git repo, never published
+wiki/

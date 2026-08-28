@@ -1,0 +1,4 @@
+{"prompt": "can you QA the app and find bugs before I ship this", "expect": "qa"}
+{"prompt": "test the signup flow end to end and tell me what breaks", "expect": "qa"}
+{"prompt": "does this actually work? I want it tested in the browser", "expect": "qa"}
+{"prompt": "rename the getUser function to fetchUser across the repo", "expect": null}
