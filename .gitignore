@@ -42,3 +42,6 @@ wiki/
 
 # Session notes, personal and per-session
 session-handoff.md
+
+# Breadcrumb from an interrupted verify.sh run
+.verify-in-progress

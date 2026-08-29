@@ -20,7 +20,24 @@ REPEAT=3
 [ "${2:-}" = "--repeat" ] && REPEAT="${3:-3}"
 
 cd "$REPO"
+
+# A kill -9 cannot be trapped, so the restore trap is not a guarantee. Since ~/.claude
+# symlinks into this tree, a half-finished run leaves a deliberately broken description
+# live. The breadcrumb makes that state loud instead of silent.
+LOCK="$REPO/.verify-in-progress"
+if [ -f "$LOCK" ]; then
+  echo "error: a previous run did not finish. The working tree may still hold its test diff,"
+  echo "and ~/.claude symlinks into it, so a broken skill may be live right now."
+  echo
+  cat "$LOCK" | sed 's/^/  /'
+  echo
+  echo "Restore, then remove the lock:"
+  echo "  git -C $REPO checkout -- . && rm $LOCK"
+  exit 1
+fi
+
 [ -f "$DIFF" ] || { echo "error: no such diff: $DIFF"; exit 1; }
+
 
 # 1. The tree must be clean, or restoring it afterwards would destroy real work.
 if [ -n "$(git status --porcelain)" ]; then
@@ -54,6 +71,7 @@ results() { sed 's/\x1b\[[0-9;]*m//g' "$1" | grep -aE '^   (PASS|FAIL|UNSTABLE)'
 TMP="$(mktemp -d)"
 restore() {
   git checkout -- . 2>/dev/null
+  rm -f "$LOCK"
   if [ -n "$(git status --porcelain)" ]; then
     echo
     echo "WARNING: tree is still dirty after restore. Inspect before doing anything else:"
@@ -69,6 +87,8 @@ tail -1 "$TMP/before.txt" | sed 's/^/  /'
 
 echo
 echo "applying $DIFF"
+{ echo "verify.sh was applying: $DIFF"; echo "started: $(date -u +%Y-%m-%dT%H:%M:%SZ)"; \
+  echo "The working tree may still contain this diff."; } > "$LOCK"
 git apply "$DIFF" || { echo "error: apply failed after passing --check"; exit 1; }
 git --no-pager diff --stat | sed 's/^/  /'
 

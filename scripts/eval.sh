@@ -50,6 +50,19 @@ elif command -v gtimeout >/dev/null; then TO="gtimeout $TIMEOUT"
 else TO=""; fi
 
 
+# Measuring a dirty tree measures whatever was left in it. ~/.claude symlinks here, so an
+# interrupted verify.sh run leaves its test diff live and the next suite silently scores it.
+if [ -f "$REPO/.verify-in-progress" ]; then
+  echo "error: $REPO/.verify-in-progress exists. A verify.sh run did not finish and its diff"
+  echo "may still be applied. Restore first:  git -C $REPO checkout -- . && rm $REPO/.verify-in-progress"
+  exit 1
+fi
+if [ "$LIST_ONLY" = 0 ] && [ -n "$(git -C "$REPO" status --porcelain 2>/dev/null)" ]; then
+  echo "note: working tree is dirty; these results describe the tree as it is, not as committed."
+  git -C "$REPO" status --short 2>/dev/null | sed 's/^/  /'
+  echo
+fi
+
 # Cases run here so no project CLAUDE.md is picked up from the caller's directory.
 SANDBOX="$(mktemp -d)"
 
