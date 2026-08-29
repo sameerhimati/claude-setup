@@ -44,6 +44,10 @@ if [ "$touches_desc" = 1 ] && [ "$touches_eval" = 1 ]; then
   exit 1
 fi
 
+# 3. Check the diff applies before spending a baseline on it. A full suite is tens of
+# minutes; discovering a malformed patch afterwards wastes all of it.
+git apply --check "$DIFF" 2>/dev/null || { echo "error: diff does not apply cleanly to this tree"; exit 1; }
+
 results() { sed 's/\x1b\[[0-9;]*m//g' "$1" | grep -aE '^   (PASS|FAIL|UNSTABLE)' \
   | sed -E 's/^   ([A-Z]+) +(.{1,56}[^ ]) +-> ([^ ]*).*/\1\t\2\t\3/'; }
 
@@ -65,8 +69,7 @@ tail -1 "$TMP/before.txt" | sed 's/^/  /'
 
 echo
 echo "applying $DIFF"
-git apply --check "$DIFF" 2>/dev/null || { echo "error: diff does not apply cleanly"; exit 1; }
-git apply "$DIFF"
+git apply "$DIFF" || { echo "error: apply failed after passing --check"; exit 1; }
 git --no-pager diff --stat | sed 's/^/  /'
 
 echo
