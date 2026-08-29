@@ -39,3 +39,6 @@ skills/*/voice.local.md
 
 # Knowledge layer: local, may be its own git repo, never published
 wiki/
+
+# Session notes, personal and per-session
+session-handoff.md
