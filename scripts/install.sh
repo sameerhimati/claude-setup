@@ -72,14 +72,18 @@ for d in skills agents hooks rules; do link_entries "$d"; done
 if [ -L "$DEST/skills/in-progress" ]; then run rm "$DEST/skills/in-progress"; fi
 
 # --- copied files -------------------------------------------------------------
-# CLAUDE.md is copied, not linked: Claude Code skips a symlinked ~/.claude/CLAUDE.md
-# in Cowork desktop sessions. Re-run this script (or scripts/sync.sh) after editing it.
+# These live under home/ rather than the repo root. At the root they would also load as
+# project context whenever this repo is the working directory, so the global instructions
+# would be read twice in their own repo.
+#
+# Copied, not linked: Claude Code skips a symlinked ~/.claude/CLAUDE.md in Cowork desktop
+# sessions. Re-run this script after editing either file.
 for f in CLAUDE.md AGENTS.md; do
-  if [ -f "$DEST/$f" ] && ! cmp -s "$REPO/$f" "$DEST/$f"; then
+  if [ -f "$DEST/$f" ] && ! cmp -s "$REPO/home/$f" "$DEST/$f"; then
     say "  backing up existing $f -> $f.bak-$STAMP"
     run cp "$DEST/$f" "$DEST/$f.bak-$STAMP"
   fi
-  run cp "$REPO/$f" "$DEST/$f"
+  run cp "$REPO/home/$f" "$DEST/$f"
   say "  copied $f"
 done
 
