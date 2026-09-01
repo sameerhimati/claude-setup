@@ -10,6 +10,11 @@ LOG="${CLAUDE_CONFIG_DIR:-$HOME/.claude}/state/skill-usage.jsonl"
 mkdir -p "$(dirname "$LOG")" 2>/dev/null || exit 0
 jq -c --arg ts "$(date -u +%Y-%m-%dT%H:%M:%SZ)" '
   ((.prompt // "") | sub("^\\s+"; "")) as $t
+  # The harness delivers task notifications, system reminders and command echoes through the
+  # same event as a typed prompt. Logged, they read as demand the user never expressed, and
+  # the audit clusters them into skills nobody asked for.
+  | if ($t | test("^(<task-notification|<system-reminder|<command-name|<local-command|\\[SYSTEM NOTIFICATION)"))
+    then empty else . end
   | (if ($t | test("^/[a-zA-Z0-9]"))
      then ($t | sub("^/"; "") | sub("\\s[\\s\\S]*$"; ""))
      else "" end) as $cmd

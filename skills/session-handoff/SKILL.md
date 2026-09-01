@@ -48,7 +48,7 @@ Use the Write tool (or Edit tool if updating specific sections) to write `sessio
 - **Blockers:** [any blockers or "none"]
 
 ## Next Session Should
-1. **Opening gambit:** [specific first move — file to open + exact action. Not "continue atlas work" but "Open projects/atlas/decision-data-model.md, finish entity boundaries section"]
+1. **Opening gambit:** [specific first move — file to open + exact action. Not "continue the billing work" but "Open src/billing/invoice.ts, finish the proration branch"]
 2. [second priority]
 3. [additional items from roadmap]
 
