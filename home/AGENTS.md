@@ -9,6 +9,7 @@ Applies to any coding agent working in this environment. Claude Code reads this 
 - Surface assumptions. When a request has two readings, present both instead of silently picking one.
 - Build the simplest thing that works. If 200 lines could be 50, write 50.
 - Turn a task into a verifiable goal, and state the check before starting.
+- For fast-moving tools, libraries, and APIs, check current docs before recommending. Training data goes stale.
 
 ## Changes
 
